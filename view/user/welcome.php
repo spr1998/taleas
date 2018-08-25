@@ -15,6 +15,6 @@
 	<title></title>
 </head>
 <body>
-HI THERE PEOPLE
+HI THERE 
 </body>
 </html>
