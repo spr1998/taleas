@@ -1,0 +1,92 @@
+ 
+  #mainBody{
+    background-image: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("puppy.png");
+    background-repeat: no-repeat;
+    background-size: 1600px 800px;
+
+   }
+   #subscribe{
+    background-color: #9370DB;
+    border: none;
+    color: white;
+    padding: 14px 69px;
+    text-decoration: none;
+    position: absolute;
+    right: 100px;
+    top: 200px;
+    cursor: pointer;
+
+   }
+   
+
+
+  
+
+  #login{
+    background-color: #9370DB;
+    border: none;
+    color: white;
+    padding: 14px 80px;
+    text-decoration: none;
+    position: absolute;
+    right: 100px;
+    top: 80px;
+    cursor: pointer;
+}
+
+  #info{
+  background-color: #9370DB;
+    border: none;
+    color: white;
+    padding: 14px 63px;
+    text-decoration: none;
+    position: absolute;
+    right: 100px;
+    top: 140px;
+    cursor: pointer;
+
+  }
+
+#title{
+color: #9370DB;
+font-weight: bold;
+font-size: 30px;
+font-family: Comic Sans MS, Comic Sans;
+display: block;
+width: 1000px;
+margin-left:30%;
+margin-right:auto;
+margin-top: 18%;
+}
+
+#mainForm{
+  margin-left:40%;
+  margin-right:auto;
+  display:block;
+  margin-top:5%;
+  margin-bottom:0% 
+}
+
+#name{
+  width: 250px; 
+  line-height:35px;
+}
+#email{
+ width: 250px; 
+  line-height:35px;
+  }
+  
+#password{
+   width: 250px; 
+  line-height:35px;
+}
+.form_error span {
+  width: 100%;
+  height: 40px;
+  margin: 10px 10px;
+  font-size: 120%;
+  color: #020202;
+}
+.form_error input {
+  border: 1px solid #BC2642;
+}
