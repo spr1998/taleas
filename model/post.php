@@ -37,47 +37,28 @@
 
 
 
-      public function add($title,$content,$id){
+      public function add($title,$content,$id,$fileNewName){
          $db = Db::getInstance();
 
         $result = $db->prepare("SELECT email,name FROM user WHERE id = ?");
         $result->execute([$id]);
         $user = $result->fetch();
 
-        // $result1 = $db->prepare("SELECT email,fname,lname FROM prof WHERE id = ?");
-        // $result1->execute([$id]);
-        // $user1 = $result1->fetch();
-
-        // $result2 = $db->prepare("SELECT email,fname,lname FROM store WHERE id = ?");
-        // $result2->execute([$id]);
-        // $user2 = $result2->fetch();
+        
 
         if($user != ''){
 
-          $email = $user["email"];
+        $email = $user["email"];
         $name = $user["name"];
 
         } 
-        // else if($user1 != ''){
-         
-        //  $email = $user1["email"];
-        // $name = $user1["fname"].' '.$user1["lname"];
-        
-
-        // }
-        //  else if(user2 != ''){
-        //  $email = $user2["email"];
-        // $name = $user2["fname"].' '.$user2["lname"];
-        
-
-        //  }
-
+       
 
     
 
       $title = strip_tags($title);
       $content = strip_tags($content);
-      
+
        $title =  htmlspecialchars($title);
       $content =  htmlspecialchars($content);
 
@@ -87,19 +68,30 @@
           $result = $db->prepare("INSERT INTO post(titull,content,email,name,data) VALUES (:title, :content, :email, :name, :data)");
 
             $result->execute(array('title' => $title,'content' => $content , 'email' => $email , 'name' =>$name ,'data'=> $data ));
-           
-        $result = $db->prepare("SELECT id FROM post ORDER BY id DESC");
-        $result->execute([$id]);
-        $user = $result->fetch();
 
-        return $user["id"];
+            $result = $db->prepare("SELECT id FROM post ORDER BY id DESC");
+            $result->execute();
+            $user = $result->fetch();
+            while($user != '')
+            {
+            $id = $user['id']; break;
+            }
+             $result = $db->prepare("INSERT INTO image(fileName,id_p) VALUES (:fileNewName,:id)");
+
+            $result->execute(array('fileNewName' => $fileNewName, 'id' =>$id ));
+           
+        // $result = $db->prepare("SELECT id FROM post ORDER BY id DESC");
+        // $result->execute([$id]);
+        // $user = $result->fetch();
+
+        return true;
 
 
 
       }
 
 
-      public function sendSubscribeMail($id){
+      public function sendSubscribeMail(){
 
         $db = Db::getInstance();
 

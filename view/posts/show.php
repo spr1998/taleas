@@ -15,7 +15,7 @@
 	        
     		<h1>Krijo nje postim</h1>
     		
-    		<form action="index.php?controller=posts&action=addPost" method="POST">
+    		<form action="index.php?controller=posts&action=addPost" method="POST" enctype="multipart/form-data">
     		    
     		    
     		    <div class="form-group">
@@ -31,6 +31,7 @@
     		    
     		    
     		    <div class="form-group">
+    		    	<input type="file" name="file"><br />
     		        <button type="submit" class="btn btn-primary">
     		            Krijo
     		        </button>
@@ -38,7 +39,7 @@
     		            Anullo
     		        </a>
     		    </div>
-    		    
+    		    <?php if(isset($_SESSION["error"])){ echo $_SESSION["error"]; unset($_SESSION["error"]); } ?>
     		</form>
 		</div>
 		

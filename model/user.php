@@ -127,14 +127,6 @@
 			$result->execute([$email]);
 			$user = $result->fetch();
 
-			// $result1 = $db->prepare("SELECT * FROM prof WHERE email = ?");
-			// $result1->execute([$email]);
-			// $user1 = $result1->fetch();
-
-			// $result2 = $db->prepare("SELECT * FROM store WHERE email = ?");
-			// $result2->execute([$email]);
-			// $user2 = $result2->fetch();
-
 			if($user != '' ){
 
 				if ($user && password_verify($password, $user['password']))
@@ -146,31 +138,7 @@
 			}
 		}
 
-			// else{
-
-
-			// 	if($user1 != '' ){
-
-			// 		if ($user1 && password_verify($password, $user1['password']))
-			// 		{
-			// 			return $user1['confirm'];
-			// 		} else {
-			// 			return false;
-			// 		}
-			// 	}
-			// 	else{
-
-			// 		if($user2 != '' ){
-
-			// 			if ($user2 && password_verify($password, $user2['password']))
-			// 			{
-			// 				return $user2['confirm'];
-			// 			} else {
-			// 				return false;
-			// 			}
-			// 		}
-			// 	}
-			// }
+			
 
 			
 
@@ -186,13 +154,7 @@
 			$result->execute([$email]);
 			$user = $result->fetch();
 
-			// $result1 = $db->prepare("SELECT confirm_code FROM prof WHERE email = ?");
-			// $result1->execute([$email]);
-			// $user1 = $result1->fetch();
-
-			// $result2 = $db->prepare("SELECT confirm_code FROM store WHERE email = ?");
-			// $result2->execute([$email]);
-			// $user2 = $result2->fetch();
+		
 
 
 			if($user["confirm_code"] == $confirm_code){
@@ -205,27 +167,7 @@
 				
 				return true;
 			} 
-			// else if($user1["confirm_code"] == $confirm_code){
-
-			// 	$result1 = $db->prepare("UPDATE prof SET confirm = 1 WHERE email = ?");
-			// 	$result1->execute([$email]);
-
-			// 	$result1 = $db->prepare("UPDATE prof SET confirm_code = 0 WHERE email = ?");
-			// 	$result1->execute([$email]);
-				
-			// 	return true;
-			// } 
-
-			// else if($user2["confirm_code"] == $confirm_code){
-
-			// 	$result2 = $db->prepare("UPDATE store SET confirm = 1 WHERE email = ?");
-			// 	$result2->execute([$email]);
-
-			// 	$result2 = $db->prepare("UPDATE store SET confirm_code = 0 WHERE email = ?");
-			// 	$result2->execute([$email]);
-				
-			// 	return true;
-			// }
+			
 			else return false;
 
 		}
@@ -237,13 +179,7 @@
 			$result->execute([$email]);
 			$user = $result->fetch();
 
-			// $result1 = $db->prepare("SELECT id FROM prof WHERE email = ?");
-			// $result1->execute([$email]);
-			// $user1 = $result1->fetch();
-
-			// $result2 = $db->prepare("SELECT id FROM store WHERE email = ?");
-			// $result2->execute([$email]);
-			// $user2 = $result2->fetch();
+			
 
 			$password = password_hash($password, PASSWORD_DEFAULT);
 
@@ -255,23 +191,7 @@
 				return true;
 
 			}
-			// else if($user1["id"] > 0){
-
-			// 	$result = $db->prepare("UPDATE prof SET password = :password WHERE email = :email ");
-
-			// 	$result->execute(array(':password' => $password ,':email' => $email ));
-			// 	return true;
-
-			// } 
-			// else if($user1["id"] > 0){
-
-
-			// 	$result = $db->prepare("UPDATE store SET password = :password WHERE email = :email ");
-
-			// 	$result->execute(array(':password' => $password ,':email' => $email ));
-			// 	return true;
-
-			// }
+			
 
 		}
 
