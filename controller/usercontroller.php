@@ -419,54 +419,69 @@ class UserController{
 				$email = $_POST["email"];
 			} 
 
+
 			if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
 				header('location: index.php?controller=user&action=showResetPassword');
-			}
-			else {
+			}	
+			else
+			{
+				$token = User::updateToken($email);
 
-				$_SESSION["email"] = $email;
+				if($token != '')
+				{
 
-				$mail = new PHPMailer(true);                              
-				try {
-					    //Server settings
-					$mail->SMTPDebug = 0;                                 
-					$mail->isSMTP();                                      
-					$mail->Host = 'smtp.gmail.com';  
-					$mail->SMTPAuth = true;                               
-					$mail->Username = 'petprojecttaleas@gmail.com';                
-					$mail->Password = 'Serena1234';                           
-					$mail->SMTPSecure = 'tls';                            
-					$mail->Port = 587;                                    
+			
+
+					$_SESSION["email"] = $email;
+
+					$mail = new PHPMailer(true);                              
+					try {
+						    //Server settings
+						$mail->SMTPDebug = 0;                                 
+						$mail->isSMTP();                                      
+						$mail->Host = 'smtp.gmail.com';  
+						$mail->SMTPAuth = true;                               
+						$mail->Username = 'petprojecttaleas@gmail.com';                
+						$mail->Password = 'Serena1234';                           
+						$mail->SMTPSecure = 'tls';                            
+						$mail->Port = 587;                                    
 
 
-					$mail->setFrom('petprojecttaleas@gmail.com', '4 Paw Friends');
-					$mail->addAddress($email);    
+						$mail->setFrom('petprojecttaleas@gmail.com', '4 Paw Friends');
+						$mail->addAddress($email);    
 
 
-					$mail->isHTML(true);                                  
-					$mail->Subject = 'Confirmation email';
-					$mail->Body    = "Hello there! Click here to be able to change your password <a href='http://localhost/taleas/index.php?controller=user&action=showChangePassword'  >Click here</a>";
+						$mail->isHTML(true);                                  
+						$mail->Subject = 'Confirmation email';
+						$mail->Body    = "Hello there! Click here to be able to change your password <a href='http://localhost/taleas/index.php?controller=user&action=showChangePassword&token=$token'  >Click here</a>";
 
-					$mail->send();
-					echo 'Message has been sent';
-					header('location: view/pages/resetMessage.php');
-					exit();
+						$mail->send();
+						echo 'Message has been sent';
+						header('location: view/pages/resetMessage.php');
+						exit();
+
+					}
+
+					catch (Exception $e) {
+						echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+					}
 
 				}
-
-				catch (Exception $e) {
-					echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
-				}
-
-			}
 
 		}
+
+	}
+
+
 
 		public function resetPassword(){
 
 			$email = $_SESSION["email"];
-			
 
+			if(isset($_GET["token"])){
+				$token = $_GET["token"];
+			}
+			
 			if(isset($_POST["password"])){
 				$_SESSION["password"] = $password = $_POST["password"];
 			}
@@ -483,11 +498,11 @@ class UserController{
 			else {
 
 				$_SESSION["error"] = "";
-				$reset = User::reset($password, $email);
+				$reset = User::reset($password, $email,$token);
 
 				if($reset){
 					header('location: index.php?controller=user&action=login');			
-					session_destroy();
+					
 				}
 
 			}

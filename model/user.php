@@ -172,27 +172,32 @@
 
 		}
 
-		public function reset($password,$email){
+		public function reset($password,$email,$token)
+		{
+
 			$db = Db::getInstance();
 
-			$result = $db->prepare("SELECT id FROM user WHERE email = ?");
+			$result = $db->prepare("SELECT * FROM user WHERE email = ?");
 			$result->execute([$email]);
 			$user = $result->fetch();
 
+			if($user["token"] == $token)
+			{
 			
 
-			$password = password_hash($password, PASSWORD_DEFAULT);
+				$password = password_hash($password, PASSWORD_DEFAULT);
 
-			if($user["id"] > 0){
+				if($user["id"] > 0)
+				{
 
 				$result = $db->prepare("UPDATE user SET password = :password WHERE email = :email ");
 
 				$result->execute(array(':password' => $password ,':email' => $email ));
 				return true;
 
-			}
+				}
 			
-
+			}
 		}
 
 
@@ -245,7 +250,27 @@
 		}
 
 
+		public function updateToken($email){
 
+			$db = Db::getInstance();
+				$token = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM123456789!()';
+				$token = str_shuffle($token);
+				$token = substr($token,0,12);
+
+			$result = $db->prepare("UPDATE user SET token = '$token' WHERE email=?");
+			
+			
+			if($result->execute([$email]))
+			{
+			return $token;
+			}
+			else 
+			{
+				return false;
+			}
+
+
+		}
 
 
 

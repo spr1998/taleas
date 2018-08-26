@@ -29,7 +29,8 @@
 	               	</div>
 	            </div> 
 				<div class="main-login main-center">
-					<form class="form-horizontal" method="post" action="index.php?controller=user&action=resetPassword" >
+					<?php if(isset($_GET["token"])){ $token = $_GET["token"];} ?>
+					<form class="form-horizontal" method="post" action="index.php?controller=user&action=resetPassword&token=<?php echo $token ?>" >
 						
 						
 						<div class="form-group">
