@@ -22,7 +22,7 @@
         $content = $_POST["content"];
       } 
 
-      if($title == '' && $content == ''){
+      if($title == '' || $content == ''){
         $_SESSION["error"] = "Please fill all the fields";
         header('location: index.php?controller=posts&action=show'); die;
       }
@@ -43,7 +43,7 @@
         if(in_array($fileType, $type))
         { 
           if($fileError === 0)
-          {
+          { 
            
               $fileNewName = uniqid().".".$fileType;
               $fileDestination = 'upload/'.$fileNewName;
