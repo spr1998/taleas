@@ -295,46 +295,21 @@ class UserController{
 				$result->execute([$email]);
 				$user = $result->fetch();
 
-				$result1 = $db->prepare("SELECT id FROM prof WHERE email = ?");
-				$result1->execute([$email]);
-				$user1 = $result1->fetch();
-
-				$result2 = $db->prepare("SELECT id FROM store WHERE email = ?");
-				$result2->execute([$email]);
-				$user2 = $result2->fetch();
+				
 				
 				if($user != ''){
 					$_SESSION["id"]=$user["id"];
 					Header('location: index.php?controller=user&action=welcome');
 				}
 
-				else
-
-				{
-
-					if($user1 != ''){
-						$_SESSION["id"]=$user1["id"];
-						Header('location: index.php?controller=user&action=welcome');
-
-					}
-
-
-					else {
-
-						if($user2 != ''){
-							$_SESSION["id"]=$user2["id"];
-							Header('location: index.php?controller=user&action=welcome');}
-						}
-
-					}
-
-				} 
+		
 				else   header('location: index.php?controller=user&action=confirm');
 
 
 			}
 
 		}
+	}
 
 		public function welcome() {
 

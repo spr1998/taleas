@@ -31,7 +31,8 @@
         Post::sendSubscribeMail($added);
 
         $posts = Post::all();
-        require_once('index.php');
+      header('location: index.php?controller=posts&action=index');
+        exit();
 
       }
 
